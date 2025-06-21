@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up - AI Career Aid</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-mode">
+  <nav class="navbar">
+    <div class="logo">🎓 AI Career Aid</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/form">Generate Email</a></li>
+      <li><a href="/login">Login</a></li>
+    </ul>
+  </nav>
+
+  <main class="auth-container">
+    <h1>Create Your Account</h1>
+    <form method="POST" action="/signup" enctype="multipart/form-data" class="auth-form">
+      <input type="text" name="full_name" placeholder="Full Name" required><br>
+      <input type="email" name="email" placeholder="Email" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <label>Upload Resume (PDF)</label>
+      <input type="file" name="resume" accept="application/pdf" required><br>
+      <div class="button-wrapper">
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+    <div class="google-signin-wrapper">
+      <p class="or-divider">or</p>
+      <div class="button-wrapper">
+        <a href="/login/google" class="google-btn">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+          Sign up with Google
+        </a>
+      </div>
+    </div>
+    <p>Already have an account? <a href="/login">Log in</a></p>
+  </main>
+</body>
+</html>

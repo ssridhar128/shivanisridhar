@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - AI Career Aid</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="dark-mode">
+  <nav class="navbar">
+    <div class="logo">🎓 AI Career Aid</div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/form">Generate Email</a></li>
+      <li><a href="/signup">Sign Up</a></li>
+    </ul>
+  </nav>
+
+  <main class="auth-container">
+    <h1>Log In</h1>
+    <form method="POST" action="/login" class="auth-form">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password (not required)" required>
+      <div class="button-wrapper">
+        <button type="submit" class="full-btn">Log In</button>
+      </div>
+    </form>
+
+    <p class="or-divider">or</p>
+
+    <div class="button-wrapper">
+      <a href="/login/google" class="google-btn full-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+        Log in with Google
+      </a>
+    </div>
+
+    <p>Don't have an account? <a href="/signup">Sign up</a></p>
+  </main>
+</body>
+</html>

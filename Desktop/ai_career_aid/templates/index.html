@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Career Aid</title>
+  <!-- Cute Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Space Background with Moving Stars */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(ellipse at bottom, #0d0d1a 0%, #000000 100%);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      color: #ccc;
+    }
+
+    /* Star animation layers */
+    .stars, .stars2, .stars3 {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-repeat: repeat;
+      z-index: -1;
+      animation: moveStars 100s linear infinite;
+      filter: brightness(2.5);
+    }
+
+    .stars {
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      opacity: 0.4;
+    }
+
+    .stars2 {
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation-duration: 150s;
+      opacity: 0.3;
+    }
+
+    .stars3 {
+      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation-duration: 200s;
+      opacity: 0.2;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: -10000px 5000px; }
+    }
+
+    h1 {
+      color: #b491ff;
+      text-shadow: 1px 1px 10px rgba(180, 145, 255, 0.6);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 2rem;
+    }
+
+    form {
+      background: rgba(26, 26, 46, 0.75);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      padding: 2rem;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 1rem;
+      color: #eee;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #2a2a40;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      outline: none;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    /* Cute Cosmic Button */
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background: linear-gradient(135deg, #b491ff, #00bfff);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 12px #b491ff;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #00bfff, #b491ff);
+      box-shadow: 0 0 20px #00bfff;
+      transform: scale(1.05);
+    }
+
+    .email-preview {
+      margin-top: 2rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      padding: 1rem;
+      border-left: 4px solid #b491ff;
+      border-radius: 8px;
+      color: #eee;
+      width: 100%;
+      max-width: 600px;
+      white-space: pre-wrap;
+    }
+
+    #sendButton {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Moving Stars Background -->
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
+  <h1>AI Career Aid — Cold Email Generator</h1>
+
+  <form id="emailForm">
+    <label for="full_name">Your Full Name</label>
+    <input type="text" id="full_name" name="full_name" placeholder="e.g., Jane Doe" required />
+
+    <label for="company">Company Name</label>
+    <input type="text" id="company" name="company" placeholder="e.g., SpaceX" required />
+
+    <label for="recruiter_name">Recruiter Name</label>
+    <input type="text" id="recruiter_name" name="recruiter_name" placeholder="e.g., John Smith" required />
+
+    <label for="recruiter_email">Recruiter Email</label>
+    <input type="email" id="recruiter_email" name="recruiter_email" placeholder="e.g., john@company.com" required />
+
+    <label for="resume">Upload Resume (PDF)</label>
+    <input type="file" id="resume" name="resume" accept="application/pdf" required />
+
+    <button type="submit">Generate Email</button>
+  </form>
+
+  <div id="output" class="email-preview" style="display: none;"></div>
+
+  <button id="sendButton" style="display: none;">✉️ Send with Gmail</button>
+
+  <script>
+    const form = document.getElementById('emailForm');
+    const output = document.getElementById('output');
+    const sendButton = document.getElementById('sendButton');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      output.style.display = 'block';
+      output.innerText = "⏳ Generating email...";
+
+      try {
+        const response = await fetch('/generate-email', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          output.innerText = data.email;
+          sendButton.style.display = 'inline-block';
+        } else {
+          output.innerText = `❌ Error: ${data.error || 'Unknown error'}`;
+        }
+      } catch (err) {
+        output.innerText = "❌ Failed to generate email. Try again.";
+      }
+    });
+
+    sendButton.addEventListener('click', () => {
+      window.location.href = "/gmail-login";
+    });
+  </script>
+</body>
+</html>
