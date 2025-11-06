@@ -1,0 +1,16 @@
+/* frontend/src/styles.css */
+body { font-family: system-ui, Arial; background:#f4f6f8; color:#111; margin:0; padding:20px; }
+.container { max-width:920px; margin:0 auto; }
+.card { background:#fff; padding:16px; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); margin:12px 0; }
+header { display:flex; justify-content:space-between; align-items:center; }
+.two-col { display:flex; gap:12px; }
+.slider-group { display:flex; flex-direction:column; gap:8px; }
+.slider-row { display:flex; flex-direction:column; gap:4px; }
+.timer { font-size:20px; margin:8px 0; }
+.timer.final { color: #a50; font-weight:700; }
+.warning { color:#a00; font-weight:700; margin-top:8px; }
+.info { color:green; margin-top:8px; }
+button { padding:8px 10px; border-radius:6px; border:0; background:#1f6feb; color:#fff; cursor:pointer; }
+button:disabled { background:#ccc; cursor:not-allowed; }
+input[type="range"] { width:100%; }
+input, select { padding:8px; border-radius:6px; border:1px solid #ddd; margin-bottom:8px; }
